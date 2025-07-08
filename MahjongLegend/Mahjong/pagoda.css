@@ -1,0 +1,320 @@
+/* Load Kashima Brush font */
+@font-face {
+  font-family: 'KashimaBrush';
+  src: url('Kashima Demo.otf') format('truetype');
+}
+
+/* Base setup */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
+  background: url('background 5.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+
+html {
+  overflow: auto;
+  height: auto;
+}
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+/* Sidebar layout */
+.sidebar {
+  position: fixed;
+  top: 30px;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  z-index: 100;
+}
+
+.icon-box {
+  width: 70px;
+  height: 70px;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.icon-box:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px 6px rgba(255, 255, 255, 0.4);
+}
+
+.icon-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: brightness(1.1) saturate(1.2);
+}
+
+
+/* Reduce size of Home, Menu, and Refresh buttons only */
+.icon-box img[src="home new.png"],
+.icon-box img[src="menu new.png"],
+.icon-box img[src="refresh new.png"] {
+  width: 70%;
+  height: 70%;
+}
+
+
+/* Game Layout */
+.layout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin-left: 350px;
+}
+
+.game-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: transparent;
+}
+
+/* Mahjong container */
+#mahjong-container {
+  position: relative;
+  width: 1024px;
+  height: 640px;
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+  overflow: visible;
+}
+
+/* Mahjong tiles */
+.tile {
+  position: absolute;
+  width: 60px;
+  height: 80px;
+  background-color: white;
+  border: 2px solid #2b2b2b;
+  border-radius: 6px;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3);
+  font-size: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.2s ease, opacity 0.3s;
+}
+
+.tile.selected {
+  outline: 3px solid red;
+  transform: scale(1.1);
+}
+
+.tile.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.tile.hint {
+  box-shadow: 0 0 20px 6px yellow;
+}
+
+/* Top info bar (timer + tile count) */
+.top-info {
+  position: fixed;
+  top: 20px;
+  right: 30px;
+  display: flex;
+  gap: 20px;
+  z-index: 200;
+}
+
+.info-box {
+  width: 70px;
+  height: 70px;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(3px);
+}
+
+.info-box img {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  filter: brightness(1.1) saturate(1.2);
+  margin-bottom: 4px;
+}
+
+.info-box span {
+  color: #fff;
+  font-size: 30px;
+  font-family: 'KashimaBrush', sans-serif;
+  letter-spacing: 1px;
+}
+
+/* Menu Overlay Background */
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Hidden by default */
+.hidden {
+  display: none;
+}
+
+/* Menu Box in Center */
+.menu-box {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 20px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  align-items: center;
+}
+
+/* Menu Item Buttons */
+.menu-item {
+  font-family: 'KashimaBrush', sans-serif;
+  font-size: 32px;
+  color: white;
+  background: rgba(0, 0, 0, 0.15);
+  padding: 16px 36px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: 240px;
+  text-align: center;
+}
+
+.menu-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px 6px rgba(255, 255, 255, 0.4);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .layout {
+    margin-left: 220px;
+  }
+  #mahjong-container {
+    width: 900px;
+    height: 600px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .layout {
+    margin-left: 150px;
+  }
+  #mahjong-container {
+    width: 90vw;
+    height: 60vh;
+  }
+  .tile {
+    width: 50px;
+    height: 65px;
+    font-size: 24px;
+  }
+  .info-box span {
+    font-size: 24px;
+  }
+  .menu-item {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    left: 10px;
+    top: 20px;
+  }
+  .icon-box {
+    width: 60px;
+    height: 60px;
+  }
+  .top-info {
+    top: 10px;
+    right: 10px;
+  }
+  .info-box {
+    width: 60px;
+    height: 60px;
+  }
+  .info-box img {
+    width: 30px;
+    height: 30px;
+  }
+  .layout {
+    margin-left: 100px;
+  }
+  #mahjong-container {
+    width: 85vw;
+    height: 55vh;
+  }
+  .tile {
+    width: 45px;
+    height: 60px;
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .layout {
+    margin-left: 50px;
+  }
+  .tile {
+    width: 40px;
+    height: 55px;
+    font-size: 18px;
+  }
+  .menu-item {
+    width: 180px;
+    font-size: 20px;
+  }
+  .info-box span {
+    font-size: 20px;
+  }
+}
+#game-over-text {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'KashimaBrush', sans-serif;
+  font-size: 60px;
+  color: #fff;
+  text-align: center;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 40px 60px;
+  border-radius: 20px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+}

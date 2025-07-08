@@ -1,0 +1,71 @@
+<!-- turtle.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mahjong Legend - Pagoda</title>
+  <link rel="stylesheet" href="pagoda.css" />
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <!-- Top-right game info -->
+    <div class="top-info">
+      <div class="info-box">
+        <img src="timer 2.png" alt="Timer Icon" />
+        <span id="timer">00:00</span>
+      </div>
+      <div class="info-box">
+        <img src="mahjong tile.png" alt="Tile Icon" />
+        <span id="tile-count">--</span>
+      </div>
+    </div>
+
+    <!-- Home -->
+    <div class="icon-box" title="Home" onclick="location.href='main page.html'">
+      <img src="home new.png" alt="Home" />
+    </div>
+
+    <!-- Menu -->
+    <div class="icon-box" title="Menu" onclick="toggleMenu()">
+      <img src="menu new.png" alt="Menu" />
+    </div>
+
+    <!-- Refresh -->
+    <div class="icon-box" title="Refresh" onclick="refreshGame()">
+      <img src="refresh new.png" alt="Refresh" />
+    </div>
+    <!-- Help -->
+    <div class="icon-box" title="Help" id="help-btn" onclick="useHint()">
+      <img src="brain light.png" alt="Help" id="help-icon" />
+    </div>
+  </div>
+
+  <!-- Menu Overlay -->
+  <div id="menu-overlay" class="menu-overlay hidden">
+    <div class="menu-box">
+      <button class="menu-item" onclick="location.href='main page.html'">Home</button>
+      <button class="menu-item" onclick="resumeGame()">Resume</button>
+      <button class="menu-item" id="new-game-btn">New Game</button>
+
+      
+      <a href="about.html" onclick="goToAbout()" class="menu-item-link">
+  <button class="menu-item">About</button>
+</a>
+
+
+    </div>
+  </div>
+
+  <!-- Main Game Area -->
+  <div class="layout">
+    <div class="game-wrapper">
+      <h1></h1>
+      <div id="mahjong-container"></div>
+    </div>
+  </div>
+
+  <script src="pagoda.js"></script>
+</body>
+</html>

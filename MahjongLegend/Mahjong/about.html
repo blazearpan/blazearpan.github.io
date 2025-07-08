@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About Mahjong</title>
+  <style>
+    @font-face {
+      font-family: 'Kashima';
+      src: url('Kashima Demo.otf') format('truetype');
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      background: url('background 3.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Kashima', sans-serif;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+.container {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 40px;
+  border-radius: 25px;
+  box-shadow: 0 0 25px 10px rgba(255, 0, 0, 0.7); /* 🔴 Red outer glow */
+  max-width: 950px;
+  width: 90%;
+}
+
+
+    h1 {
+      font-size: 72px;
+      margin-bottom: 20px;
+      text-shadow: 4px 4px 10px red;
+    }
+
+    p {
+      font-size: 32px;
+      line-height: 1.7;
+      text-shadow: 2px 2px 5px black;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 25px 0;
+      font-size: 30px;
+      text-align: justify;
+    }
+
+    ul li {
+      position: relative;
+      padding-left: 50px; /* Leaves space for 🀄 */
+      margin-bottom: 20px;
+    }
+
+    ul li::before {
+      content: '🀄';
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-size: 34px;
+    }
+
+    /* ✅ Responsive Styles */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 54px;
+      }
+
+      p {
+        font-size: 26px;
+      }
+
+      ul {
+        font-size: 24px;
+      }
+
+      ul li {
+        padding-left: 40px;
+      }
+
+      ul li::before {
+        font-size: 28px;
+      }
+
+      .container {
+        padding: 30px;
+        width: 92%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 42px;
+      }
+
+      p {
+        font-size: 20px;
+      }
+
+      ul {
+        font-size: 20px;
+      }
+
+      ul li {
+        padding-left: 36px;
+      }
+
+      ul li::before {
+        font-size: 24px;
+      }
+
+      .container {
+        padding: 25px;
+        width: 94%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🀄 Mahjong Legend 🀄</h1>
+    <p>
+      Welcome to the ancient world of Mahjong,<br>
+      where strategy, memory, and patience lead to victory.<br>
+      Each tile holds history. Each match unlocks power.<br>
+      Only the wise can master the board.
+    </p>
+
+    <ul>
+      <li><strong>Use your mind</strong> – Match identical tiles that are free and not blocked.</li>
+      <li><strong>Clear the layers</strong> – Some tiles hide others beneath them.</li>
+      <li><strong>Use Hints</strong> – But only three times!</li>
+    </ul>
+  </div>
+</body>
+</html>

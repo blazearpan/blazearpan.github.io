@@ -8,30 +8,22 @@
 html, body {
   margin: 0;
   padding: 0;
-  height: 100vh;
-  overflow: auto;
+  height: auto;
+  overflow-y: auto;
   font-family: 'Segoe UI', sans-serif;
   background: url('background 5.jpg') no-repeat center center fixed;
   background-size: cover;
 }
 
-/* Heading (not used currently) */
-h1 {
-  font-size: 28px;
-  margin-bottom: 20px;
-  color: #fff;
-}
-
 /* Sidebar layout */
 .sidebar {
-  position: fixed;
+  position: absolute;
   top: 20px;
   left: 10px;
   display: flex;
   flex-direction: column;
   gap: 14px;
   z-index: 100;
-  flex-wrap: wrap;
 }
 
 .icon-box {
@@ -63,9 +55,9 @@ h1 {
 .layout {
   display: flex;
   justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+  align-items: flex-start;
   margin-left: 100px;
+  padding-top: 100px;
 }
 
 .game-wrapper {
@@ -222,7 +214,7 @@ h1 {
 /* Responsive Media Queries */
 @media (max-width: 1200px) {
   .layout {
-    margin-left: 100px;
+    margin-left: 80px;
   }
   #mahjong-container {
     width: 900px;
@@ -232,7 +224,7 @@ h1 {
 
 @media (max-width: 1024px) {
   .layout {
-    margin-left: 80px;
+    margin-left: 60px;
   }
   #mahjong-container {
     width: 90vw;
@@ -253,7 +245,7 @@ h1 {
 
 @media (max-width: 768px) {
   .layout {
-    margin-left: 60px;
+    margin-left: 50px;
   }
   .icon-box {
     width: 55px;

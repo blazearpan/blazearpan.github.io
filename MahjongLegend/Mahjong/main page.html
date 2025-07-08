@@ -1,30 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Mahjong Legend</title>
-  <link rel="stylesheet" href="main.css">
+
+  <!-- Load Kashima Brush Font -->
   <style>
     @font-face {
       font-family: 'Kashima DEMO';
       src: url('Kashima Demo.otf');
     }
+  </style>
 
-html, body {
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  overflow-x: hidden; /* Only hide horizontal scroll */
-  overflow-y: auto;   /* Allow vertical scrolling */
-  font-family: 'Kashima DEMO', sans-serif;
-  background: url('background 3.jpg') no-repeat center center fixed;
-  background-size: cover;
-  
-  position: relative; /* ✅ This anchors absolute elements like About button */
-
-
-}
-
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      overflow-y: auto;
+      font-family: 'Kashima DEMO', sans-serif;
+      background: url('background 3.jpg') no-repeat center center fixed;
+      background-size: cover;
+      position: relative;
+    }
 
     h1 {
       font-size: 72px;
@@ -83,32 +82,92 @@ html, body {
       text-decoration: none;
     }
 
-.about-button {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: none;
-  border: none;
-  color: white;
-  font-size: 30px;
-  text-shadow: 4px 4px 10px red;
-  font-family: 'Kashima DEMO', sans-serif;
-  transition: transform 0.3s ease;
-  
-  bottom: 10px; /* original is 20px, make it lower */
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      top: 30px;
+      left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      z-index: 100;
+    }
 
-}
+    .icon-box {
+      width: 70px;
+      height: 70px;
+      background: rgba(0, 0, 0, 0.15);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
 
+    .icon-box:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px 6px rgba(255, 255, 255, 0.4);
+    }
 
-.about-button:hover {
-  transform: translateX(-50%) scale(1.05);
-  cursor: pointer;
-}
+    .icon-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: brightness(1.1) saturate(1.2);
+    }
 
+    .icon-box img[src="home new.png"],
+    .icon-box img[src="menu new.png"] {
+      width: 70%;
+      height: 70%;
+    }
 
+    /* Menu overlay */
+    .menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(5px);
+      z-index: 999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
 
-    /* ✅ RESPONSIVE FIXES */
+    .menu-box {
+      background: rgba(0, 0, 0, 0.15);
+      border-radius: 20px;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      align-items: center;
+    }
+
+    .menu-item {
+      font-family: 'Kashima DEMO', sans-serif;
+      font-size: 32px;
+      color: white;
+      background: rgba(0, 0, 0, 0.15);
+      padding: 16px 36px;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      width: 240px;
+      text-align: center;
+    }
+
+    .menu-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px 6px rgba(255, 255, 255, 0.4);
+    }
+
+    /* Responsive Fixes */
     @media (max-width: 768px) {
       h1 {
         font-size: 48px;
@@ -129,9 +188,19 @@ html, body {
         line-height: 40px;
       }
 
-      .about-button {
-        font-size: 28px;
-        padding: 10px 28px;
+      .icon-box {
+        width: 60px;
+        height: 60px;
+      }
+
+      .icon-box img {
+        width: 60%;
+        height: 60%;
+      }
+
+      .menu-item {
+        font-size: 24px;
+        width: 200px;
       }
     }
 
@@ -151,14 +220,34 @@ html, body {
         line-height: 35px;
       }
 
-      .about-button {
-        font-size: 24px;
-        padding: 8px 24px;
+      .icon-box {
+        width: 55px;
+        height: 55px;
+      }
+
+      .icon-box img {
+        width: 55%;
+        height: 55%;
+      }
+
+      .menu-item {
+        font-size: 20px;
+        width: 180px;
       }
     }
   </style>
 </head>
 <body>
+
+  <!-- Sidebar with Home & Menu -->
+  <div class="sidebar">
+    <div class="icon-box" onclick="window.location.href='main page.html'">
+      <img src="home new.png" alt="Home">
+    </div>
+    <div class="icon-box" onclick="toggleMenu()">
+      <img src="menu new.png" alt="Menu">
+    </div>
+  </div>
 
   <h1>🀄 Mahjong Legend 🀄</h1>
 
@@ -177,11 +266,31 @@ html, body {
       <img src="butterfly cover.png" alt="Butterfly Layout">
       <span>Butterfly</span>
     </a>
-
-    
   </div>
 
-  <a href="about.html" class="about-button">About</a>
+  <!-- Menu Overlay -->
+  <div id="menuOverlay" class="menu-overlay">
+    <div class="menu-box">
+      <div class="menu-item" onclick="window.location.href='main page.html'"> Home</div>
+      <div class="menu-item" onclick="window.location.href='about.html'"> About</div>
+    </div>
+  </div>
+
+  <!-- Script to toggle overlay -->
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById("menuOverlay");
+      menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+    }
+
+    // Close menu when clicking outside
+    window.addEventListener("click", function(event) {
+      const menu = document.getElementById("menuOverlay");
+      if (event.target === menu) {
+        menu.style.display = "none";
+      }
+    });
+  </script>
 
 </body>
 </html>

@@ -23,9 +23,40 @@
       box-sizing: border-box;
     }
 
+    .home-button-container {
+      display: flex;
+      justify-content: flex-start;
+      padding: 20px 20px 0 20px;
+    }
+
+    .home-button {
+      width: 70px;
+      height: 70px;
+      background: rgba(0, 0, 0, 0.15);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .home-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px 6px rgba(255, 255, 255, 0.4);
+    }
+
+    .home-button img {
+      width: 70%;
+      height: 70%;
+      object-fit: contain;
+      filter: brightness(1.1) saturate(1.2);
+    }
+
     h1 {
       font-size: 72px;
-      margin: 40px 20px 20px;
+      margin: 20px;
       text-shadow: 4px 4px 10px red;
     }
 
@@ -63,37 +94,6 @@
       text-shadow: 0 0 8px red;
     }
 
-    /* Floating Home Button */
-    .home-icon {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      width: 70px;
-      height: 70px;
-      background: rgba(0, 0, 0, 0.15);
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-      z-index: 9999;
-    }
-
-    .home-icon:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 15px 6px rgba(255, 255, 255, 0.4);
-    }
-
-    .home-icon img {
-      width: 70%;
-      height: 70%;
-      object-fit: contain;
-      filter: brightness(1.1) saturate(1.2);
-    }
-
-    /* ✅ Responsive Styles */
     @media (max-width: 768px) {
       h1 {
         font-size: 54px;
@@ -107,20 +107,12 @@
         font-size: 24px;
       }
 
-      ul li {
-        padding-left: 40px;
-      }
-
-      ul li::before {
-        font-size: 28px;
-      }
-
-      .home-icon {
+      .home-button {
         width: 60px;
         height: 60px;
       }
 
-      .home-icon img {
+      .home-button img {
         width: 60%;
         height: 60%;
       }
@@ -140,20 +132,12 @@
         font-size: 20px;
       }
 
-      ul li {
-        padding-left: 36px;
-      }
-
-      ul li::before {
-        font-size: 24px;
-      }
-
-      .home-icon {
+      .home-button {
         width: 55px;
         height: 55px;
       }
 
-      .home-icon img {
+      .home-button img {
         width: 55%;
         height: 55%;
       }
@@ -162,10 +146,12 @@
 </head>
 <body>
 
-  <!-- Floating Home Button -->
-  <a href="main page.html" class="home-icon">
-    <img src="home new.png" alt="Home">
-  </a>
+  <!-- 👇 Home button that scrolls with content -->
+  <div class="home-button-container">
+    <a href="main page.html" class="home-button">
+      <img src="home new.png" alt="Home">
+    </a>
+  </div>
 
   <h1>🀄 Mahjong Legend 🀄</h1>
 

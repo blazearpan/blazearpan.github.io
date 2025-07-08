@@ -4,7 +4,7 @@
   src: url('Kashima Demo.otf') format('truetype');
 }
 
-/* 🧱 Full page base */
+/* Base setup */
 html, body {
   margin: 0;
   padding: 0;
@@ -15,14 +15,13 @@ html, body {
   overflow-x: hidden;
 }
 
-/* 📌 Sidebar (scrolls with page) */
+/* Sidebar — now scrolls with the page */
 .sidebar {
   margin: 30px 0 0 20px;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  position: relative; /* ✅ so it scrolls with page */
-  z-index: 100;
+  z-index: 1;
 }
 
 /* Sidebar icons */
@@ -34,6 +33,7 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
   cursor: pointer;
   transition: transform 0.2s ease;
 }
@@ -54,7 +54,7 @@ html, body {
   height: 70%;
 }
 
-/* 🎮 Game layout */
+/* Layout */
 .layout {
   display: flex;
   flex-direction: row;
@@ -74,11 +74,10 @@ html, body {
 #mahjong-container {
   position: relative;
   width: 1024px;
-  min-height: 700px;
   margin-top: 30px;
 }
 
-/* Tile styling */
+/* Tiles */
 .tile {
   position: absolute;
   width: 60px;
@@ -107,13 +106,15 @@ html, body {
   box-shadow: 0 0 20px 6px yellow;
 }
 
-/* 🕒 Timer & tile count */
+/* Top info bar (timer, tile count) — now scrolls too */
 .top-info {
-  margin: 30px 0 0 auto;
   display: flex;
   gap: 20px;
+  margin: 30px auto 0 auto;
+  justify-content: center;
 }
 
+/* Timer / count boxes */
 .info-box {
   width: 70px;
   height: 70px;
@@ -128,15 +129,17 @@ html, body {
 .info-box img {
   width: 38px;
   height: 38px;
+  object-fit: contain;
   margin-bottom: 4px;
 }
 .info-box span {
   color: #fff;
   font-size: 30px;
   font-family: 'KashimaBrush', sans-serif;
+  letter-spacing: 1px;
 }
 
-/* 🛑 Game over box */
+/* Game Over Message */
 #game-over-text {
   position: absolute;
   top: 50%;
@@ -154,7 +157,7 @@ html, body {
   z-index: 9999;
 }
 
-/* 📋 Menu overlay (still fixed) */
+/* Menu overlay (only this is fixed) */
 .menu-overlay {
   position: fixed;
   top: 0;
@@ -197,15 +200,15 @@ html, body {
   box-shadow: 0 0 15px 6px rgba(255, 255, 255, 0.4);
 }
 
-/* 📱 Responsive */
+/* Responsive */
 @media (max-width: 768px) {
   .layout {
     flex-direction: column;
     padding: 10px;
-    margin-left: 10px;
   }
   .sidebar {
     flex-direction: row;
+    justify-content: center;
     gap: 10px;
   }
   .icon-box {
@@ -213,22 +216,31 @@ html, body {
     height: 60px;
   }
   .top-info {
+    flex-direction: row;
     justify-content: center;
-    margin: 20px auto 0;
+    margin: 20px auto 0 auto;
   }
-  #mahjong-container {
-    width: 95vw;
+  .info-box {
+    width: 60px;
+    height: 60px;
+  }
+  .info-box img {
+    width: 30px;
+    height: 30px;
   }
   .tile {
     width: 45px;
     height: 60px;
     font-size: 20px;
   }
-  .info-box span {
-    font-size: 20px;
+  #mahjong-container {
+    width: 95vw;
   }
   .menu-item {
-    font-size: 22px;
+    font-size: 20px;
     width: 180px;
+  }
+  .info-box span {
+    font-size: 20px;
   }
 }

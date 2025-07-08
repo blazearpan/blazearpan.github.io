@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <title>About Mahjong</title>
   <style>
     @font-face {
@@ -63,7 +63,7 @@
       text-shadow: 0 0 8px red;
     }
 
-    /* Floating Home Button */
+    /* ✅ Floating Home Button that scrolls properly on mobile */
     .home-icon {
       position: fixed;
       top: 20px;
@@ -77,12 +77,12 @@
       justify-content: center;
       overflow: hidden;
       cursor: pointer;
-      transition: transform 0.2s ease;
       z-index: 9999;
+      transform: translateZ(0); /* 👈 Force GPU layer to fix mobile issues */
     }
 
     .home-icon:hover {
-      transform: scale(1.05);
+      transform: scale(1.05) translateZ(0);
       box-shadow: 0 0 15px 6px rgba(255, 255, 255, 0.4);
     }
 
@@ -93,7 +93,6 @@
       filter: brightness(1.1) saturate(1.2);
     }
 
-    /* ✅ Responsive Styles */
     @media (max-width: 768px) {
       h1 {
         font-size: 54px;
@@ -105,14 +104,6 @@
 
       ul {
         font-size: 24px;
-      }
-
-      ul li {
-        padding-left: 40px;
-      }
-
-      ul li::before {
-        font-size: 28px;
       }
 
       .home-icon {
@@ -140,14 +131,6 @@
         font-size: 20px;
       }
 
-      ul li {
-        padding-left: 36px;
-      }
-
-      ul li::before {
-        font-size: 24px;
-      }
-
       .home-icon {
         width: 55px;
         height: 55px;
@@ -162,7 +145,7 @@
 </head>
 <body>
 
-  <!-- Floating Home Button -->
+  <!-- Home Button -->
   <a href="main page.html" class="home-icon">
     <img src="home new.png" alt="Home">
   </a>

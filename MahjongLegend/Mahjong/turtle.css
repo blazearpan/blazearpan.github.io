@@ -15,6 +15,17 @@ html, body {
   background-size: cover;
 }
 
+html {
+  overflow: auto;
+  height: auto;
+}
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
 /* Sidebar layout */
 .sidebar {
   position: fixed;
@@ -38,17 +49,19 @@ html, body {
   cursor: pointer;
   transition: transform 0.2s ease;
 }
+
 .icon-box:hover {
   transform: scale(1.05);
   box-shadow: 0 0 15px 6px rgba(255, 255, 255, 0.4);
 }
+
 .icon-box img {
   width: 100%;
   height: 100%;
   object-fit: contain;
   filter: brightness(1.1) saturate(1.2);
 }
-/* Reduce size of Home, Menu, Refresh */
+
 .icon-box img[src="home new.png"],
 .icon-box img[src="menu new.png"],
 .icon-box img[src="refresh new.png"] {
@@ -56,18 +69,16 @@ html, body {
   height: 70%;
 }
 
-/* Layout structure */
+/* Game Layout */
 .layout {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  height: 100vh;
-  overflow: hidden;
-  padding-top: 100px;
   margin-left: 350px;
+  padding-top: 120px;
 }
 
-/* Game wrapper */
+/* Wrapper */
 .game-wrapper {
   display: flex;
   flex-direction: column;
@@ -75,14 +86,13 @@ html, body {
   background: transparent;
 }
 
-/* Mahjong container */
+/* Mahjong container (with scroll) */
 #mahjong-container {
   position: relative;
   width: 1024px;
-  height: auto;
   max-height: 100vh;
   overflow-y: auto;
-  padding-bottom: 150px;
+  padding-bottom: 200px;
 }
 
 /* Scrollbar style */
@@ -111,19 +121,22 @@ html, body {
   user-select: none;
   transition: transform 0.2s ease, opacity 0.3s;
 }
+
 .tile.selected {
   outline: 3px solid red;
   transform: scale(1.1);
 }
+
 .tile.hidden {
   opacity: 0;
   pointer-events: none;
 }
+
 .tile.hint {
   box-shadow: 0 0 20px 6px yellow;
 }
 
-/* Timer & Tile Counter */
+/* Top info bar (timer + tile count) */
 .top-info {
   position: fixed;
   top: 20px;
@@ -132,6 +145,7 @@ html, body {
   gap: 20px;
   z-index: 200;
 }
+
 .info-box {
   width: 70px;
   height: 70px;
@@ -143,6 +157,7 @@ html, body {
   justify-content: center;
   backdrop-filter: blur(3px);
 }
+
 .info-box img {
   width: 38px;
   height: 38px;
@@ -150,11 +165,62 @@ html, body {
   filter: brightness(1.1) saturate(1.2);
   margin-bottom: 4px;
 }
+
 .info-box span {
   color: #fff;
   font-size: 30px;
   font-family: 'KashimaBrush', sans-serif;
   letter-spacing: 1px;
+}
+
+/* Menu Overlay Background */
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Hidden by default */
+.hidden {
+  display: none;
+}
+
+/* Menu Box */
+.menu-box {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 20px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  align-items: center;
+}
+
+/* Menu Items */
+.menu-item {
+  font-family: 'KashimaBrush', sans-serif;
+  font-size: 32px;
+  color: white;
+  background: rgba(0, 0, 0, 0.15);
+  padding: 16px 36px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: 240px;
+  text-align: center;
+}
+
+.menu-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px 6px rgba(255, 255, 255, 0.4);
 }
 
 /* Game Over Text */
@@ -175,53 +241,10 @@ html, body {
   box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
 }
 
-/* Menu Overlay */
-.menu-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(5px);
-  z-index: 999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.hidden {
-  display: none;
-}
-.menu-box {
-  background: rgba(0, 0, 0, 0.15);
-  border-radius: 20px;
-  padding: 40px;
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  align-items: center;
-}
-.menu-item {
-  font-family: 'KashimaBrush', sans-serif;
-  font-size: 32px;
-  color: white;
-  background: rgba(0, 0, 0, 0.15);
-  padding: 16px 36px;
-  border-radius: 14px;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  width: 240px;
-  text-align: center;
-}
-.menu-item:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px 6px rgba(255, 255, 255, 0.4);
-}
-
 /* Responsive */
 @media (max-width: 1200px) {
   .layout {
-    margin-left: 200px;
+    margin-left: 220px;
   }
   #mahjong-container {
     width: 900px;
@@ -271,11 +294,9 @@ html, body {
   }
   .layout {
     margin-left: 100px;
-    padding-top: 80px;
   }
   #mahjong-container {
     width: 85vw;
-    padding-bottom: 200px;
   }
   .tile {
     width: 45px;

@@ -20,35 +20,30 @@
       font-family: 'Kashima', sans-serif;
       color: white;
       text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      padding: 40px 20px;
       box-sizing: border-box;
     }
 
     h1 {
       font-size: 72px;
-      margin: 20px 0 0 0;
+      margin: 40px 20px 20px;
       text-shadow: 4px 4px 10px red;
-      text-align: center;
-      color: white;
     }
 
     p {
       font-size: 32px;
       line-height: 1.8;
       max-width: 1000px;
+      margin: 0 auto 40px;
       text-shadow: 0 0 8px red;
-      margin-bottom: 40px;
+      padding: 0 20px;
     }
 
     ul {
       list-style: none;
-      padding: 0;
+      padding: 0 20px;
       font-size: 30px;
       max-width: 1000px;
+      margin: 0 auto 60px;
       text-align: justify;
       text-shadow: 0 0 8px red;
     }
@@ -68,10 +63,10 @@
       text-shadow: 0 0 8px red;
     }
 
-    /* Sidebar-style home button */
+    /* Floating Home Button */
     .home-icon {
       position: fixed;
-      top: 30px;
+      top: 20px;
       left: 20px;
       width: 70px;
       height: 70px;
@@ -83,7 +78,7 @@
       overflow: hidden;
       cursor: pointer;
       transition: transform 0.2s ease;
-      z-index: 1000;
+      z-index: 9999;
     }
 
     .home-icon:hover {
@@ -102,7 +97,6 @@
     @media (max-width: 768px) {
       h1 {
         font-size: 54px;
-        margin-bottom: 20px;
       }
 
       p {
@@ -135,7 +129,7 @@
     @media (max-width: 480px) {
       h1 {
         font-size: 42px;
-        margin-top: 20px;
+        margin-top: 30px;
       }
 
       p {
@@ -168,7 +162,7 @@
 </head>
 <body>
 
-  <!-- Sidebar Home Icon Button -->
+  <!-- Floating Home Button -->
   <a href="main page.html" class="home-icon">
     <img src="home new.png" alt="Home">
   </a>

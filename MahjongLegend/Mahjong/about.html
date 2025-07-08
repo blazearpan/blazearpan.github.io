@@ -12,52 +12,51 @@
     html, body {
       margin: 0;
       padding: 0;
-      height: 100%;
-      overflow: hidden;
+      min-height: 100vh;
+      overflow-x: hidden;
+      overflow-y: auto;
       background: url('background 3.jpg') no-repeat center center fixed;
       background-size: cover;
       font-family: 'Kashima', sans-serif;
       color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 40px 20px;
+      box-sizing: border-box;
     }
-
-.container {
-  background: rgba(0, 0, 0, 0.6);
-  padding: 40px;
-  border-radius: 25px;
-  box-shadow: 0 0 25px 10px rgba(255, 0, 0, 0.7); /* 🔴 Red outer glow */
-  max-width: 950px;
-  width: 90%;
-}
-
 
     h1 {
       font-size: 72px;
-      margin-bottom: 20px;
+      margin: 20px 0 0 0;
       text-shadow: 4px 4px 10px red;
+      text-align: center;
+      color: white;
     }
 
     p {
       font-size: 32px;
-      line-height: 1.7;
-      text-shadow: 2px 2px 5px black;
+      line-height: 1.8;
+      max-width: 1000px;
+      text-shadow: 0 0 8px red;
+      margin-bottom: 40px;
     }
 
     ul {
       list-style: none;
       padding: 0;
-      margin: 25px 0;
       font-size: 30px;
+      max-width: 1000px;
       text-align: justify;
+      text-shadow: 0 0 8px red;
     }
 
     ul li {
       position: relative;
-      padding-left: 50px; /* Leaves space for 🀄 */
-      margin-bottom: 20px;
+      padding-left: 50px;
+      margin-bottom: 25px;
     }
 
     ul li::before {
@@ -66,12 +65,33 @@
       left: 0;
       top: 0;
       font-size: 34px;
+      text-shadow: 0 0 8px red;
     }
+
+ .back-button {
+  margin-top: 50px;
+  font-size: 32px; /* 🔺 Slightly bigger */
+  color: white;
+  font-family: 'Kashima', sans-serif;
+  text-decoration: none;
+  text-shadow: 0 0 10px red;
+  transition: transform 0.3s ease;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.back-button:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+  text-shadow: 0 0 14px red;
+}
 
     /* ✅ Responsive Styles */
     @media (max-width: 768px) {
       h1 {
         font-size: 54px;
+        margin-bottom: 20px;
       }
 
       p {
@@ -90,15 +110,16 @@
         font-size: 28px;
       }
 
-      .container {
-        padding: 30px;
-        width: 92%;
+      .back-button {
+        font-size: 24px;
+        padding: 10px 24px;
       }
     }
 
     @media (max-width: 480px) {
       h1 {
         font-size: 42px;
+        margin-top: 20px;
       }
 
       p {
@@ -117,28 +138,32 @@
         font-size: 24px;
       }
 
-      .container {
-        padding: 25px;
-        width: 94%;
+      .back-button {
+        font-size: 20px;
+        padding: 8px 20px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>🀄 Mahjong Legend 🀄</h1>
-    <p>
-      Welcome to the ancient world of Mahjong,<br>
-      where strategy, memory, and patience lead to victory.<br>
-      Each tile holds history. Each match unlocks power.<br>
-      Only the wise can master the board.
-    </p>
 
-    <ul>
-      <li><strong>Use your mind</strong> – Match identical tiles that are free and not blocked.</li>
-      <li><strong>Clear the layers</strong> – Some tiles hide others beneath them.</li>
-      <li><strong>Use Hints</strong> – But only three times!</li>
-    </ul>
-  </div>
+  <h1>🀄 Mahjong Legend 🀄</h1>
+
+  <p>
+    Welcome to the ancient world of Mahjong,<br>
+    where strategy, memory, and patience lead to victory.<br>
+    Each tile holds history. Each match unlocks power.<br>
+    Only the wise can master the board.
+  </p>
+
+  <ul>
+    <li><strong>Use your mind</strong> – Match identical tiles that are free and not blocked.</li>
+    <li><strong>Clear the layers</strong> – Some tiles hide others beneath them.</li>
+    <li><strong>Use Hints</strong> – But only three times!</li>
+  </ul>
+
+  <!-- ✅ Back to Game Button -->
+  <a href="main page.html" class="back-button">HOME</a>
+
 </body>
 </html>

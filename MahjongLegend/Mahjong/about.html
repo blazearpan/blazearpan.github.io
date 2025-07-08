@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>About Mahjong</title>
   <style>
     @font-face {
@@ -68,24 +68,35 @@
       text-shadow: 0 0 8px red;
     }
 
- .back-button {
-  margin-top: 50px;
-  font-size: 32px; /* 🔺 Slightly bigger */
-  color: white;
-  font-family: 'Kashima', sans-serif;
-  text-decoration: none;
-  text-shadow: 0 0 10px red;
-  transition: transform 0.3s ease;
-  background: none;
-  border: none;
-  padding: 0;
-}
+    /* Sidebar-style home button */
+    .home-icon {
+      position: fixed;
+      top: 30px;
+      left: 20px;
+      width: 70px;
+      height: 70px;
+      background: rgba(0, 0, 0, 0.15);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      z-index: 1000;
+    }
 
-.back-button:hover {
-  transform: scale(1.05);
-  cursor: pointer;
-  text-shadow: 0 0 14px red;
-}
+    .home-icon:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px 6px rgba(255, 255, 255, 0.4);
+    }
+
+    .home-icon img {
+      width: 70%;
+      height: 70%;
+      object-fit: contain;
+      filter: brightness(1.1) saturate(1.2);
+    }
 
     /* ✅ Responsive Styles */
     @media (max-width: 768px) {
@@ -110,9 +121,14 @@
         font-size: 28px;
       }
 
-      .back-button {
-        font-size: 24px;
-        padding: 10px 24px;
+      .home-icon {
+        width: 60px;
+        height: 60px;
+      }
+
+      .home-icon img {
+        width: 60%;
+        height: 60%;
       }
     }
 
@@ -138,14 +154,24 @@
         font-size: 24px;
       }
 
-      .back-button {
-        font-size: 20px;
-        padding: 8px 20px;
+      .home-icon {
+        width: 55px;
+        height: 55px;
+      }
+
+      .home-icon img {
+        width: 55%;
+        height: 55%;
       }
     }
   </style>
 </head>
 <body>
+
+  <!-- Sidebar Home Icon Button -->
+  <a href="main page.html" class="home-icon">
+    <img src="home new.png" alt="Home">
+  </a>
 
   <h1>🀄 Mahjong Legend 🀄</h1>
 
@@ -161,9 +187,6 @@
     <li><strong>Clear the layers</strong> – Some tiles hide others beneath them.</li>
     <li><strong>Use Hints</strong> – But only three times!</li>
   </ul>
-
-  <!-- ✅ Back to Game Button -->
-  <a href="main page.html" class="back-button">HOME</a>
 
 </body>
 </html>

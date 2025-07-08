@@ -1,4 +1,10 @@
-/* ✅ Base setup */
+/* Load Kashima Brush font */
+@font-face {
+  font-family: 'KashimaBrush';
+  src: url('Kashima Demo.otf') format('truetype');
+}
+
+/* 🧱 Full page base */
 html, body {
   margin: 0;
   padding: 0;
@@ -9,17 +15,17 @@ html, body {
   overflow-x: hidden;
 }
 
-/* ✅ Sidebar */
+/* 📌 Sidebar (scrolls with page) */
 .sidebar {
-  position: absolute; /* was fixed */
-  top: 30px;
-  left: 20px;
+  margin: 30px 0 0 20px;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  position: relative; /* ✅ so it scrolls with page */
   z-index: 100;
 }
 
+/* Sidebar icons */
 .icon-box {
   width: 70px;
   height: 70px;
@@ -28,13 +34,18 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
   cursor: pointer;
   transition: transform 0.2s ease;
 }
 .icon-box:hover {
   transform: scale(1.05);
   box-shadow: 0 0 15px 6px rgba(255, 255, 255, 0.4);
+}
+.icon-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: brightness(1.1) saturate(1.2);
 }
 .icon-box img[src="home new.png"],
 .icon-box img[src="menu new.png"],
@@ -43,45 +54,43 @@ html, body {
   height: 70%;
 }
 
-/* ✅ Layout & structure */
+/* 🎮 Game layout */
 .layout {
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  flex-direction: column;
-  margin-left: 100px; /* space for sidebar */
-  padding-top: 30px;
-  width: auto;
+  flex-direction: row;
+  padding: 20px;
+  gap: 30px;
 }
 
+/* Game wrapper */
 .game-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  flex-grow: 1;
 }
 
-/* ✅ Mahjong container grows */
+/* Mahjong board */
 #mahjong-container {
   position: relative;
   width: 1024px;
-  min-height: 100vh;
-  padding-bottom: 100px;
+  min-height: 700px;
+  margin-top: 30px;
 }
 
-/* ✅ Tile */
+/* Tile styling */
 .tile {
   position: absolute;
   width: 60px;
   height: 80px;
-  background-color: white;
+  background: white;
   border: 2px solid #2b2b2b;
   border-radius: 6px;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
   font-size: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
   cursor: pointer;
   user-select: none;
   transition: transform 0.2s ease, opacity 0.3s;
@@ -98,14 +107,11 @@ html, body {
   box-shadow: 0 0 20px 6px yellow;
 }
 
-/* ✅ Timer Info — moved with scroll */
+/* 🕒 Timer & tile count */
 .top-info {
-  position: absolute;
-  top: 20px;
-  right: 30px;
+  margin: 30px 0 0 auto;
   display: flex;
   gap: 20px;
-  z-index: 200;
 }
 
 .info-box {
@@ -130,25 +136,25 @@ html, body {
   font-family: 'KashimaBrush', sans-serif;
 }
 
-/* ✅ Game Over */
+/* 🛑 Game over box */
 #game-over-text {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 60px;
   font-family: 'KashimaBrush', sans-serif;
+  font-size: 60px;
+  color: #fff;
+  text-align: center;
   background: rgba(0, 0, 0, 0.4);
   padding: 40px 60px;
   border-radius: 20px;
-  text-align: center;
-  z-index: 9999;
-  color: #fff;
   backdrop-filter: blur(6px);
   box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+  z-index: 9999;
 }
 
-/* ✅ Menu */
+/* 📋 Menu overlay (still fixed) */
 .menu-overlay {
   position: fixed;
   top: 0;
@@ -191,41 +197,38 @@ html, body {
   box-shadow: 0 0 15px 6px rgba(255, 255, 255, 0.4);
 }
 
-/* ✅ Mobile Responsiveness */
+/* 📱 Responsive */
 @media (max-width: 768px) {
+  .layout {
+    flex-direction: column;
+    padding: 10px;
+    margin-left: 10px;
+  }
   .sidebar {
-    left: 10px;
-    top: 20px;
+    flex-direction: row;
+    gap: 10px;
   }
   .icon-box {
     width: 60px;
     height: 60px;
   }
-  .layout {
-    margin-left: 70px;
-    padding-top: 20px;
+  .top-info {
+    justify-content: center;
+    margin: 20px auto 0;
+  }
+  #mahjong-container {
+    width: 95vw;
   }
   .tile {
     width: 45px;
     height: 60px;
     font-size: 20px;
   }
-  #mahjong-container {
-    width: 90vw;
-  }
-  .info-box {
-    width: 60px;
-    height: 60px;
-  }
-  .info-box img {
-    width: 30px;
-    height: 30px;
-  }
   .info-box span {
     font-size: 20px;
   }
   .menu-item {
-    font-size: 24px;
-    width: 200px;
+    font-size: 22px;
+    width: 180px;
   }
 }

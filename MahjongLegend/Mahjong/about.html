@@ -3,59 +3,68 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>About Mahjong</title>
+
+  <!-- Kashima Font -->
   <style>
     @font-face {
-      font-family: 'Kashima';
-      src: url('Kashima Demo.otf') format('truetype');
+      font-family: 'Kashima DEMO';
+      src: url('Kashima Demo.otf');
     }
+  </style>
 
+  <style>
     html, body {
       margin: 0;
       padding: 0;
       min-height: 100vh;
+      overflow-x: hidden;
+      overflow-y: auto;
       background: url('background 3.jpg') no-repeat center center fixed;
       background-size: cover;
-      font-family: 'Kashima', sans-serif;
+      font-family: 'Kashima DEMO', sans-serif;
       color: white;
       text-align: center;
       box-sizing: border-box;
     }
 
-    /* 👇 Home icon in normal flow */
-    .top-bar {
+    /* Sidebar (same style as main page) */
+    .sidebar {
       display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      padding: 20px;
+      flex-direction: column;
+      position: relative;
+      padding: 30px 20px 10px;
+      z-index: 100;
     }
 
-    .home-btn {
-      width: 60px;
-      height: 60px;
-      background: rgba(255, 255, 255, 0.1);
+    .icon-box {
+      width: 70px;
+      height: 70px;
+      background: rgba(0, 0, 0, 0.15);
       border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
+      cursor: pointer;
       transition: transform 0.2s ease;
-      box-shadow: 0 0 15px 6px rgba(255, 255, 255, 0.4);
+      
     }
 
-    .home-btn:hover {
+    .icon-box:hover {
       transform: scale(1.05);
-      box-shadow: 0 0 15px 6px rgba(255, 255, 255, 0.4);
+      box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0.4);
     }
 
-    .home-btn img {
-      width: 65%;
-      height: 65%;
+    .icon-box img {
+      width: 70%;
+      height: 70%;
       object-fit: contain;
       filter: brightness(1.1) saturate(1.2);
     }
 
     h1 {
       font-size: 72px;
-      margin: 20px;
+      margin: 10px 0 30px 0;
       text-shadow: 4px 4px 10px red;
     }
 
@@ -93,20 +102,28 @@
       text-shadow: 0 0 8px red;
     }
 
-    /* ✅ Responsive */
+    /* Responsive */
     @media (max-width: 768px) {
       h1 {
         font-size: 54px;
       }
+
       p {
         font-size: 26px;
       }
+
       ul {
         font-size: 24px;
       }
-      .home-btn {
-        width: 50px;
-        height: 50px;
+
+      .icon-box {
+        width: 60px;
+        height: 60px;
+      }
+
+      .icon-box img {
+        width: 60%;
+        height: 60%;
       }
     }
 
@@ -114,26 +131,34 @@
       h1 {
         font-size: 42px;
       }
+
       p {
         font-size: 20px;
       }
+
       ul {
         font-size: 20px;
       }
-      .home-btn {
-        width: 45px;
-        height: 45px;
+
+      .icon-box {
+        width: 50px;
+        height: 50px;
+      }
+
+      .icon-box img {
+        width: 50%;
+        height: 50%;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- 👇 Button that scrolls with the page -->
-  <div class="top-bar">
-    <a href="main page.html" class="home-btn">
+  <!-- Sidebar with Home Button (like main page) -->
+  <div class="sidebar">
+    <div class="icon-box" onclick="window.location.href='main page.html'">
       <img src="home new.png" alt="Home">
-    </a>
+    </div>
   </div>
 
   <h1>🀄 Mahjong Legend 🀄</h1>

@@ -300,3 +300,9 @@ document.getElementById("new-game-btn").addEventListener("click", () => {
   savedTime = 0;
   refreshGame();
 });
+
+
+
+if (window.innerHeight > window.innerWidth) {
+  document.body.innerHTML = "<div style='color:white;text-align:center;margin-top:50%;font-family:sans-serif;font-size:22px;'>Please rotate your device to landscape mode 📱↔️</div>";
+}

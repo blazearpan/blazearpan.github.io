@@ -97,14 +97,22 @@ h1 {
   border: 2px solid #2b2b2b;
   border-radius: 6px;
   box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3);
-  font-size: 32px;
+  font-size: 38px;  /* Larger for better emoji clarity */
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   user-select: none;
   transition: transform 0.2s ease, opacity 0.3s;
+
+  /* Ensure emoji fonts are used properly */
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Twemoji Mozilla", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke: 0.3px transparent; /* Prevent blurry rendering */
+  text-rendering: optimizeLegibility;
+  overflow: hidden;
 }
+
 
 .tile.selected {
   outline: 3px solid red;

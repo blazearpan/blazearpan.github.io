@@ -302,7 +302,6 @@ document.getElementById("new-game-btn").addEventListener("click", () => {
 });
 
 
-
-if (window.innerHeight > window.innerWidth) {
-  document.body.innerHTML = "<div style='color:white;text-align:center;margin-top:50%;font-family:sans-serif;font-size:22px;'>Please rotate your device to landscape mode 📱↔️</div>";
+if (screen.orientation && screen.orientation.lock) {
+  screen.orientation.lock("landscape").catch(() => {});
 }

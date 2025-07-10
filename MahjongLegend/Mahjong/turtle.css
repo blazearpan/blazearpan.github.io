@@ -307,4 +307,30 @@ h1 {
   .info-box span {
     font-size: 20px;
   }
+  .tile {
+  width: 60px;   /* was 45px */
+  height: 80px;  /* was 60px */
 }
+
+.tile img {
+  padding: 1px;
+}
+
+}
+
+
+
+
+/* Add below your existing .tile rules or anywhere before media queries */
+/* Mahjong tile image display – full clarity and scaling */
+.tile img {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+  padding: 2px;
+  border-radius: 4px;
+}
+

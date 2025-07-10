@@ -1,6 +1,8 @@
 const mahjongSymbols = [
-  "🀇", "🀈", "🀉", "🀊", "🀋", "🀌", "🀍", "🀎", "🀏",
-  "🀐", "🀑", "🀒", "🀓", "🀔"
+  "tile 1.png", "tile 2.png", "tile 3.png", "tile 4.png",
+  "tile 5.png", "tile 6.png", "tile 7.png", "tile 8.png",
+  "tile 9.png", "tile 10.png", "tile 11.png", "tile 12.png",
+  "tile 13.png", "tile 14.png", "tile 15.png", "tile 16.png"
 ];
 
 const tileWidth = 60;
@@ -17,19 +19,11 @@ let hintCount = 0;
 const maxHints = 3;
 
 const turtleLayout = [
-  // Layer 0 – Big turtle body (7x5)
   ...grid(1, 7, 1, 5, 0),
-
-  // Layer 1 – Smaller inner body (5x3)
   ...grid(2, 6, 2, 4, 1),
-
-  // Layer 2 – Small center (3x1)
   ...grid(3, 5, 3, 3, 2),
-
-  // Layer 3 – Single top tile (head)
   { x: 4, y: 3, z: 3 }
 ];
-
 
 function grid(x1, x2, y1, y2, z) {
   const arr = [];
@@ -44,7 +38,14 @@ function grid(x1, x2, y1, y2, z) {
 function createTile(symbol, pos) {
   const tile = document.createElement("div");
   tile.classList.add("tile");
-  tile.innerText = symbol;
+
+  const img = document.createElement("img");
+  img.src = symbol;
+  img.alt = "Mahjong Tile";
+  img.style.width = "100%";
+  img.style.height = "100%";
+  img.style.objectFit = "contain";
+  tile.appendChild(img);
 
   const offsetX = pos.x * (tileWidth + tileSpacing) - pos.z * layerOffset;
   const offsetY = pos.y * (tileHeight * 0.6) - pos.z * layerOffset;
@@ -53,7 +54,6 @@ function createTile(symbol, pos) {
   tile.style.top = offsetY + "px";
   tile.style.zIndex = 10 + pos.z;
 
-  // Optional: color border to see layers
   tile.style.border = pos.z === 0 ? "2px solid #aaa" :
                       pos.z === 1 ? "2px solid #00f" :
                       "1px solid #000";
@@ -150,11 +150,11 @@ function onTileClick(tileObj) {
     t2.element.classList.remove("selected");
     selectedTiles.length = 0;
   }
-  if (tilesRemaining === 0) {
-  clearInterval(timerInterval);
-  showGameOver();
-}
 
+  if (tilesRemaining === 0) {
+    clearInterval(timerInterval);
+    showGameOver();
+  }
 }
 
 function isTileFree(tile) {
@@ -253,7 +253,6 @@ function startTimer() {
     const minutes = String(Math.floor(elapsed / 60)).padStart(2, '0');
     const seconds = String(elapsed % 60).padStart(2, '0');
     document.getElementById("timer").textContent = `${minutes}:${seconds}`;
-
   }, 1000);
 }
 
@@ -281,12 +280,11 @@ function resumeGame() {
     const minutes = String(Math.floor(elapsed / 60)).padStart(2, '0');
     const seconds = String(elapsed % 60).padStart(2, '0');
     document.getElementById("timer").textContent = `${minutes}:${seconds}`;
-
   }, 1000);
   gamePaused = false;
 }
+
 function showGameOver() {
-  // If already shown, don't add again
   if (document.getElementById("game-over-text")) return;
 
   const gameOverText = document.createElement("div");
@@ -294,7 +292,6 @@ function showGameOver() {
   gameOverText.innerHTML = `Perfect Matching<br>Time: ${document.getElementById("timer").textContent}`;
   document.body.appendChild(gameOverText);
 }
-
 
 document.getElementById("new-game-btn").addEventListener("click", () => {
   document.getElementById("menu-overlay").classList.add("hidden");

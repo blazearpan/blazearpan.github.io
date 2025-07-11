@@ -1,6 +1,8 @@
 const mahjongSymbols = [
-  "🀇", "🀈", "🀉", "🀊", "🀋", "🀌", "🀍", "🀎", "🀏",
-  "🀐", "🀑", "🀒", "🀓", "🀔", "🀕", "🀖", "🀗", "🀘", "🀙", "🀚", "🀛"
+  "tile 1.png", "tile 2.png", "tile 3.png", "tile 4.png",
+  "tile 5.png", "tile 6.png", "tile 7.png", "tile 8.png",
+  "tile 9.png", "tile 10.png", "tile 11.png", "tile 12.png",
+  "tile 13.png", "tile 14.png", "tile 15.png", "tile 16.png"
 ];
 
 const tileWidth = 60;
@@ -17,22 +19,15 @@ let hintCount = 0;
 const maxHints = 3;
 
 const pagodaLayout = [
-  // Base Layer (Z = 0)
-  ...grid(0, 10, 5, 5, 0), // 11
-  ...grid(1, 9, 4, 4, 0),  // 9
-  ...grid(2, 8, 3, 3, 0),  // 7
-
-  // Second Layer (Z = 1)
-  ...grid(3, 7, 4, 4, 1),  // 5
-  ...grid(4, 6, 3, 3, 1),  // 3
+  ...grid(0, 10, 5, 5, 0),
+  ...grid(1, 9, 4, 4, 0),
+  ...grid(2, 8, 3, 3, 0),
+  ...grid(3, 7, 4, 4, 1),
+  ...grid(4, 6, 3, 3, 1),
   { x: 5, y: 2, z: 1 },
   { x: 5, y: 5, z: 1 },
-
-  // Third Layer (Z = 2)
   ...grid(4, 6, 4, 4, 2),
   { x: 5, y: 3, z: 2 },
-
-  // Top Layer (Z = 3)
   { x: 5, y: 4, z: 3 }
 ];
 
@@ -49,7 +44,14 @@ function grid(x1, x2, y1, y2, z) {
 function createTile(symbol, pos) {
   const tile = document.createElement("div");
   tile.classList.add("tile");
-  tile.innerText = symbol;
+
+  const img = document.createElement("img");
+  img.src = symbol;
+  img.alt = "Mahjong Tile";
+  img.style.width = "100%";
+  img.style.height = "100%";
+  img.style.objectFit = "contain";
+  tile.appendChild(img);
 
   const offsetX = pos.x * (tileWidth + tileSpacing) - pos.z * layerOffset;
   const offsetY = pos.y * (tileHeight * 0.6) - pos.z * layerOffset;
@@ -57,18 +59,11 @@ function createTile(symbol, pos) {
   tile.style.left = offsetX + "px";
   tile.style.top = offsetY + "px";
   tile.style.zIndex = 10 + pos.z;
+  tile.style.border = pos.z === 0 ? "2px solid #aaa"
+                      : pos.z === 1 ? "2px solid #00f"
+                      : "1px solid #000";
 
-  tile.style.border = pos.z === 0 ? "2px solid #aaa" :
-                      pos.z === 1 ? "2px solid #00f" :
-                      "1px solid #000";
-
-  const tileObj = {
-    element: tile,
-    symbol,
-    ...pos,
-    removed: false
-  };
-
+  const tileObj = { element: tile, symbol, ...pos, removed: false };
   tile.addEventListener("click", () => onTileClick(tileObj));
   document.getElementById("mahjong-container").appendChild(tile);
   tiles.push(tileObj);
@@ -86,32 +81,26 @@ function generateBoard() {
   document.getElementById("tile-count").textContent = 0;
 
   for (const pos of pagodaLayout) {
-    if (!layerMap[pos.z]) layerMap[pos.z] = [];
+    layerMap[pos.z] = layerMap[pos.z] || [];
     layerMap[pos.z].push(pos);
   }
 
   for (const z in layerMap) {
     let layerTiles = layerMap[z];
-
     if (layerTiles.length % 2 !== 0) {
       shuffle(layerTiles);
       layerTiles.pop();
     }
-
     shuffle(layerTiles);
 
     const symbols = [];
     for (let i = 0; i < layerTiles.length / 2; i++) {
-      const symbol = mahjongSymbols[i % mahjongSymbols.length];
-      symbols.push(symbol, symbol);
+      const sym = mahjongSymbols[i % mahjongSymbols.length];
+      symbols.push(sym, sym);
     }
-
     shuffle(symbols);
 
-    for (let i = 0; i < layerTiles.length; i++) {
-      createTile(symbols[i], layerTiles[i]);
-    }
-
+    layerTiles.forEach((p, i) => createTile(symbols[i], p));
     tilesRemaining += layerTiles.length;
   }
 
@@ -120,19 +109,17 @@ function generateBoard() {
 
   setTimeout(() => {
     useHint();
-    const hasHint = document.querySelector(".hint");
-    if (!hasHint) refreshGame();
+    if (!document.querySelector(".hint")) refreshGame();
   }, 100);
 }
 
 function onTileClick(tileObj) {
   if (tileObj.removed || !isTileFree(tileObj)) return;
-
   tileObj.element.classList.toggle("selected");
 
-  const index = selectedTiles.indexOf(tileObj);
-  if (index > -1) {
-    selectedTiles.splice(index, 1);
+  const idx = selectedTiles.indexOf(tileObj);
+  if (idx > -1) {
+    selectedTiles.splice(idx, 1);
     return;
   }
 
@@ -141,17 +128,14 @@ function onTileClick(tileObj) {
   if (selectedTiles.length === 2) {
     const [t1, t2] = selectedTiles;
     if (t1.symbol === t2.symbol) {
-      t1.element.classList.add("hidden");
-      t2.element.classList.add("hidden");
-      t1.removed = true;
-      t2.removed = true;
-
+      [t1, t2].forEach(t => {
+        t.element.classList.add("hidden");
+        t.removed = true;
+      });
       tilesRemaining -= 2;
       document.getElementById("tile-count").textContent = tilesRemaining;
     }
-
-    t1.element.classList.remove("selected");
-    t2.element.classList.remove("selected");
+    [t1.element, t2.element].forEach(el => el.classList.remove("selected"));
     selectedTiles.length = 0;
   }
 
@@ -163,21 +147,18 @@ function onTileClick(tileObj) {
 
 function isTileFree(tile) {
   const hasAbove = tiles.some(t =>
-    !t.removed &&
-    t.z > tile.z &&
-    Math.abs(t.x - tile.x) <= 1 &&
-    Math.abs(t.y - tile.y) <= 1
+    !t.removed && t.z > tile.z &&
+    Math.abs(t.x - tile.x) <= 1 && Math.abs(t.y - tile.y) <= 1
   );
   if (hasAbove) return false;
 
-  const leftBlocked = tiles.some(t =>
+  const lb = tiles.some(t =>
     !t.removed && t.z === tile.z && t.y === tile.y && t.x === tile.x - 2
   );
-  const rightBlocked = tiles.some(t =>
+  const rb = tiles.some(t =>
     !t.removed && t.z === tile.z && t.y === tile.y && t.x === tile.x + 2
   );
-
-  return !(leftBlocked && rightBlocked);
+  return !(lb && rb);
 }
 
 function shuffle(array) {
@@ -193,31 +174,23 @@ function refreshGame() {
   selectedTiles.length = 0;
   hintCount = 0;
   enableHelp();
-
-  const gameOverBox = document.getElementById("game-over-text");
-  if (gameOverBox) gameOverBox.remove();
-
+  const gob = document.getElementById("game-over-text");
+  if (gob) gob.remove();
   generateBoard();
 }
 
 function useHint() {
   if (hintCount >= maxHints) return;
-
   tiles.forEach(t => t.element.classList.remove("hint"));
 
-  const helpIcon = document.getElementById("help-icon");
-  const helpBtn = document.getElementById("help-btn");
-
   const freeTiles = tiles.filter(t => !t.removed && isTileFree(t));
-
   for (let i = 0; i < freeTiles.length; i++) {
     for (let j = i + 1; j < freeTiles.length; j++) {
       if (freeTiles[i].symbol === freeTiles[j].symbol) {
-        freeTiles[i].element.classList.add("hint");
-        freeTiles[j].element.classList.add("hint");
-
+        [freeTiles[i], freeTiles[j]].forEach(t => t.element.classList.add("hint"));
         hintCount++;
-
+        const helpIcon = document.getElementById("help-icon");
+        const helpBtn = document.getElementById("help-btn");
         if (hintCount >= maxHints) {
           helpIcon.src = "crossed brain light.png";
           helpBtn.style.pointerEvents = "none";
@@ -225,7 +198,6 @@ function useHint() {
         } else {
           helpIcon.src = "brain light.png";
         }
-
         return;
       }
     }
@@ -251,22 +223,20 @@ function enableHelp() {
 function startTimer() {
   clearInterval(timerInterval);
   startTime = Date.now();
-
   timerInterval = setInterval(() => {
     const elapsed = Math.floor((Date.now() - startTime) / 1000);
-    const minutes = String(Math.floor(elapsed / 60)).padStart(2, '0');
-    const seconds = String(elapsed % 60).padStart(2, '0');
-    document.getElementById("timer").textContent = `${minutes}:${seconds}`;
+    const m = String(Math.floor(elapsed / 60)).padStart(2, '0');
+    const s = String(elapsed % 60).padStart(2, '0');
+    document.getElementById("timer").textContent = `${m}:${s}`;
   }, 1000);
 }
 
 function showGameOver() {
   if (document.getElementById("game-over-text")) return;
-
-  const gameOverText = document.createElement("div");
-  gameOverText.id = "game-over-text";
-  gameOverText.innerHTML = `Perfect Matching<br>Time: ${document.getElementById("timer").textContent}`;
-  document.body.appendChild(gameOverText);
+  const div = document.createElement("div");
+  div.id = "game-over-text";
+  div.innerHTML = `Perfect Matching<br>Time: ${document.getElementById("timer").textContent}`;
+  document.body.appendChild(div);
 }
 
 window.onload = generateBoard;
@@ -280,9 +250,8 @@ function toggleMenu() {
   savedTime = Date.now() - startTime;
   document.getElementById("menu-overlay").classList.remove("hidden");
   gamePaused = true;
-
-  const gameOverBox = document.getElementById("game-over-text");
-  if (gameOverBox) gameOverBox.remove();
+  const gob = document.getElementById("game-over-text");
+  if (gob) gob.remove();
 }
 
 function resumeGame() {
@@ -290,9 +259,9 @@ function resumeGame() {
   startTime = Date.now() - savedTime;
   timerInterval = setInterval(() => {
     const elapsed = Math.floor((Date.now() - startTime) / 1000);
-    const minutes = String(Math.floor(elapsed / 60)).padStart(2, '0');
-    const seconds = String(elapsed % 60).padStart(2, '0');
-    document.getElementById("timer").textContent = `${minutes}:${seconds}`;
+    const m = String(Math.floor(elapsed / 60)).padStart(2, '0');
+    const s = String(elapsed % 60).padStart(2, '0');
+    document.getElementById("timer").textContent = `${m}:${s}`;
   }, 1000);
   gamePaused = false;
 }
@@ -303,4 +272,10 @@ document.getElementById("new-game-btn").addEventListener("click", () => {
   gamePaused = false;
   savedTime = 0;
   refreshGame();
+});
+
+window.addEventListener('click', () => {
+  if (screen.orientation && screen.orientation.lock) {
+    screen.orientation.lock("landscape").catch(() => {});
+  }
 });

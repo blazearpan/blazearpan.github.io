@@ -1,6 +1,8 @@
 const mahjongSymbols = [
-  "🀇", "🀈", "🀉", "🀊", "🀋", "🀌", "🀍", "🀎", "🀏",
-  "🀐", "🀑", "🀒", "🀓", "🀔", "🀕", "🀖", "🀗", "🀘", "🀙", "🀚", "🀛"
+  "tile 1.png", "tile 2.png", "tile 3.png", "tile 4.png",
+  "tile 5.png", "tile 6.png", "tile 7.png", "tile 8.png",
+  "tile 9.png", "tile 10.png", "tile 11.png", "tile 12.png",
+  "tile 13.png", "tile 14.png", "tile 15.png", "tile 16.png"
 ];
 
 const tileWidth = 60;
@@ -16,7 +18,7 @@ let startTime;
 let hintCount = 0;
 const maxHints = 3;
 
-// ✅ BUTTERFLY Layout
+// Butterfly Layout
 const butterflyLayout = [
   ...grid(0, 2, 5, 5, 0),
   ...grid(0, 3, 4, 4, 0),
@@ -55,7 +57,14 @@ function grid(x1, x2, y1, y2, z) {
 function createTile(symbol, pos) {
   const tile = document.createElement("div");
   tile.classList.add("tile");
-  tile.innerText = symbol;
+
+  const img = document.createElement("img");
+  img.src = symbol;
+  img.alt = "Mahjong Tile";
+  img.style.width = "100%";
+  img.style.height = "100%";
+  img.style.objectFit = "contain";
+  tile.appendChild(img);
 
   const offsetX = pos.x * (tileWidth + tileSpacing) - pos.z * layerOffset;
   const offsetY = pos.y * (tileHeight * 0.6) - pos.z * layerOffset;
@@ -91,7 +100,6 @@ function generateBoard() {
   tilesRemaining = 0;
   document.getElementById("tile-count").textContent = 0;
 
-  // ✅ Use butterfly layout instead of turtle
   for (const pos of butterflyLayout) {
     if (!layerMap[pos.z]) layerMap[pos.z] = [];
     layerMap[pos.z].push(pos);
@@ -99,12 +107,10 @@ function generateBoard() {
 
   for (const z in layerMap) {
     let layerTiles = layerMap[z];
-
     if (layerTiles.length % 2 !== 0) {
       shuffle(layerTiles);
       layerTiles.pop();
     }
-
     shuffle(layerTiles);
 
     const symbols = [];
@@ -112,16 +118,13 @@ function generateBoard() {
       const symbol = mahjongSymbols[i % mahjongSymbols.length];
       symbols.push(symbol, symbol);
     }
-
     shuffle(symbols);
 
     for (let i = 0; i < layerTiles.length; i++) {
       createTile(symbols[i], layerTiles[i]);
     }
-
     tilesRemaining += layerTiles.length;
   }
-
   document.getElementById("tile-count").textContent = tilesRemaining;
   startTimer();
 
@@ -131,6 +134,7 @@ function generateBoard() {
     if (!hasHint) refreshGame();
   }, 100);
 }
+
 
 function onTileClick(tileObj) {
   if (tileObj.removed || !isTileFree(tileObj)) return;
@@ -161,6 +165,7 @@ function onTileClick(tileObj) {
     t2.element.classList.remove("selected");
     selectedTiles.length = 0;
   }
+
   if (tilesRemaining === 0) {
     clearInterval(timerInterval);
     showGameOver();
@@ -309,4 +314,11 @@ document.getElementById("new-game-btn").addEventListener("click", () => {
   gamePaused = false;
   savedTime = 0;
   refreshGame();
+});
+
+// Lock to landscape on interaction
+window.addEventListener('click', () => {
+  if (screen.orientation && screen.orientation.lock) {
+    screen.orientation.lock("landscape").catch(() => {});
+  }
 });

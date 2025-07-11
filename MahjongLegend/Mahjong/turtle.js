@@ -301,7 +301,9 @@ document.getElementById("new-game-btn").addEventListener("click", () => {
   refreshGame();
 });
 
-
-if (screen.orientation && screen.orientation.lock) {
-  screen.orientation.lock("landscape").catch(() => {});
-}
+// Lock to landscape on interaction
+window.addEventListener('click', () => {
+  if (screen.orientation && screen.orientation.lock) {
+    screen.orientation.lock("landscape").catch(() => {});
+  }
+});

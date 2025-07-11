@@ -4,237 +4,353 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Mahjong Legend</title>
 
-  <!-- Load Kashima Brush Font -->
-  <style>
-    @font-face {
-      font-family: 'Kashima DEMO';
-      src: url('Kashima Demo.otf');
-    }
-  </style>
+<style>
+  @font-face {
+  font-family: 'Kashima DEMO';
+  src: url('Kashima Demo.otf');
+}
 
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      overflow-x: hidden;
-      overflow-y: auto;
-      font-family: 'Kashima DEMO', sans-serif;
-      background: url('background 3.jpg') no-repeat center center fixed;
-      background-size: cover;
-      position: relative;
-    }
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  font-family: 'Kashima DEMO', sans-serif;
+  background: url('background 3.jpg') no-repeat center center fixed;
+  background-size: cover;
+  position: relative;
+}
 
-    h1 {
-      font-size: 72px;
-      margin: 20px 0 0 0;
-      text-shadow: 4px 4px 10px red;
-      text-align: center;
-      color: white;
-    }
+h1 {
+  font-size: 72px;
+  margin: 20px 0 0 100px; /* Keeps away from sidebar */
+  text-shadow: 4px 4px 10px red;
+  text-align: center;
+  color: white;
+}
 
-    .container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 40px;
-      height: calc(100% - 180px);
-      padding: 20px;
-      box-sizing: border-box;
-    }
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  height: calc(100% - 180px);
+  padding: 20px;
+  box-sizing: border-box;
+}
 
-    .box {
-      width: 250px;
-      height: 250px;
-      background-color: rgba(255, 255, 255, 0.1);
-      border: 3px solid white;
-      border-radius: 20px;
-      box-shadow: 0 0 10px white;
-      text-align: center;
-      cursor: pointer;
-      transition: transform 0.3s ease, background-color 0.3s;
-      overflow: hidden;
-      position: relative;
-    }
+.box {
+  width: 250px;
+  height: 250px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 3px solid white;
+  border-radius: 20px;
+  box-shadow: 0 0 10px white;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s;
+  overflow: hidden;
+  position: relative;
+}
 
-    .box:hover {
-      transform: scale(1.1);
-      background-color: rgba(255, 255, 255, 0.2);
-    }
+.box:hover {
+  transform: scale(1.1);
+  background-color: rgba(255, 255, 255, 0.2);
+}
 
-    .box img {
-      width: 100%;
-      height: 75%;
-      object-fit: cover;
-    }
+.box img {
+  width: 100%;
+  height: 75%;
+  object-fit: cover;
+}
 
-    .box span {
-      display: block;
-      height: 25%;
-      line-height: 62.5px;
-      font-size: 30px;
-      color: white;
-      text-shadow: 4px 4px 10px red;
-    }
+.box span {
+  display: block;
+  height: 25%;
+  line-height: 62.5px;
+  font-size: 30px;
+  color: white;
+  text-shadow: 4px 4px 10px red;
+}
 
-    a {
-      text-decoration: none;
-    }
+a {
+  text-decoration: none;
+}
 
-    /* Sidebar */
-    .sidebar {
-      position: fixed;
-      top: 30px;
-      left: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      z-index: 100;
-    }
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 30px;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  z-index: 100;
+}
 
-    .icon-box {
-      width: 70px;
-      height: 70px;
-      background: rgba(0, 0, 0, 0.15);
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-    }
+.icon-box {
+  width: 70px;
+  height: 70px;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
 
-    .icon-box:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 15px 6px rgba(255, 255, 255, 0.4);
-    }
+.icon-box:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px 6px rgba(255, 255, 255, 0.4);
+}
 
-    .icon-box img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      filter: brightness(1.1) saturate(1.2);
-    }
+.icon-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: brightness(1.1) saturate(1.2);
+}
 
-    .icon-box img[src="home new.png"],
-    .icon-box img[src="menu new.png"] {
-      width: 70%;
-      height: 70%;
-    }
+.icon-box img[src="home new.png"],
+.icon-box img[src="menu new.png"] {
+  width: 70%;
+  height: 70%;
+}
 
-    /* Menu overlay */
-    .menu-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.4);
-      backdrop-filter: blur(5px);
-      z-index: 999;
-      display: none;
-      align-items: center;
-      justify-content: center;
-    }
+/* Menu overlay */
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+  z-index: 999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
 
-    .menu-box {
-      background: rgba(0, 0, 0, 0.15);
-      border-radius: 20px;
-      padding: 40px;
-      display: flex;
-      flex-direction: column;
-      gap: 25px;
-      align-items: center;
-    }
+.menu-box {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 20px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  align-items: center;
+}
 
-    .menu-item {
-      font-family: 'Kashima DEMO', sans-serif;
-      font-size: 32px;
-      color: white;
-      background: rgba(0, 0, 0, 0.15);
-      padding: 16px 36px;
-      border-radius: 14px;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      width: 240px;
-      text-align: center;
-    }
+.menu-item {
+  font-family: 'Kashima DEMO', sans-serif;
+  font-size: 32px;
+  color: white;
+  background: rgba(0, 0, 0, 0.15);
+  padding: 16px 36px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: 240px;
+  text-align: center;
+}
 
-    .menu-item:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 15px 6px rgba(255, 255, 255, 0.4);
-    }
+.menu-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px 6px rgba(255, 255, 255, 0.4);
+}
 
-    /* Responsive Fixes */
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 48px;
-      }
+/* Responsive Fixes */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 48px;
+    margin: 20px 0 0 80px;
+  }
 
-      .container {
-        gap: 20px;
-        padding: 10px;
-      }
+  .container {
+    gap: 20px;
+    padding: 10px;
+  }
 
-      .box {
-        width: 160px;
-        height: 160px;
-      }
+  .box {
+    width: 160px;
+    height: 160px;
+  }
 
-      .box span {
-        font-size: 22px;
-        line-height: 40px;
-      }
+  .box span {
+    font-size: 22px;
+    line-height: 40px;
+  }
 
-      .icon-box {
-        width: 60px;
-        height: 60px;
-      }
+  .icon-box {
+    width: 60px;
+    height: 60px;
+  }
 
-      .icon-box img {
-        width: 60%;
-        height: 60%;
-      }
+  .icon-box img {
+    width: 60%;
+    height: 60%;
+  }
 
-      .menu-item {
-        font-size: 24px;
-        width: 200px;
-      }
-    }
+  .menu-item {
+    font-size: 24px;
+    width: 200px;
+  }
+}
 
-    @media (max-width: 480px) {
-      h1 {
-        font-size: 40px;
-        margin-top: 10px;
-      }
+@media (max-width: 480px) {
+  h1 {
+    font-size: 40px;
+    margin-top: 16px;
+    margin-left: 70px;
+  }
 
-      .box {
-        width: 140px;
-        height: 140px;
-      }
+  .box {
+    width: 140px;
+    height: 140px;
+  }
 
-      .box span {
-        font-size: 20px;
-        line-height: 35px;
-      }
+  .box span {
+    font-size: 20px;
+    line-height: 35px;
+  }
 
-      .icon-box {
-        width: 55px;
-        height: 55px;
-      }
+  .icon-box {
+    width: 55px;
+    height: 55px;
+  }
 
-      .icon-box img {
-        width: 55%;
-        height: 55%;
-      }
+  .icon-box img {
+    width: 55%;
+    height: 55%;
+  }
 
-      .menu-item {
-        font-size: 20px;
-        width: 180px;
-      }
-    }
+  .menu-item {
+    font-size: 20px;
+    width: 180px;
+  }
+}
+
+@media screen and (orientation: portrait) and (max-width: 768px) {
+  h1 {
+    font-size: 40px;
+    margin-top: 50px;
+    margin-left: 70px;
+  }
+
+  .container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 170px;
+    padding-bottom: 60px;
+  }
+
+  .container-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: nowrap;
+  }
+
+  .container-row.single {
+    justify-content: center;
+  }
+
+  .box {
+    width: 160px;
+    height: 160px;
+  }
+
+  .box span {
+    font-size: 28px;
+    line-height: 40px;
+  }
+
+  .sidebar {
+    top: 12px;
+    left: 12px;
+    gap: 14px;
+  }
+
+  .icon-box {
+    width: 55px;
+    height: 55px;
+  }
+
+  .icon-box img {
+    width: 80%;
+    height: 80%;
+  }
+}
+
+@media screen and (orientation: landscape) and (max-height: 500px) {
+  h1 {
+    font-size: 40px;
+    margin-top: 10px;
+    margin-left: 80px;
+  }
+
+  html, body {
+    overflow: hidden;
+    height: 100vh;
+  }
+
+  .container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 60px;
+    height: auto;
+  }
+
+  .container-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: nowrap;
+    flex-direction: row;
+  }
+
+  .container-row.single {
+    justify-content: center;
+  }
+
+  .box {
+    width: 160px;
+    height: 160px;
+  }
+
+  .box span {
+    font-size: 28px;
+    line-height: 40px;
+  }
+
+  .icon-box {
+    width: 55px;
+    height: 55px;
+  }
+
+  .icon-box img {
+    width: 75%;
+    height: 75%;
+  }
+
+  .menu-item {
+    font-size: 22px;
+    width: 200px;
+  }
+}
+
+
+
   </style>
 </head>
 <body>
@@ -249,24 +365,28 @@
     </div>
   </div>
 
-  <h1>🀄 Mahjong Legend 🀄</h1>
+  <h1> Mahjong Legend </h1>
 
-  <div class="container">
+<div class="container">
+  <div class="container-row">
     <a href="turtle.html" class="box">
       <img src="turtle cover.png" alt="Turtle Layout">
       <span>Turtle</span>
     </a>
-
     <a href="pagoda.html" class="box">
       <img src="pagoda cover.png" alt="Pagoda Layout">
       <span>Pagoda</span>
     </a>
+  </div>
 
+  <div class="container-row single">
     <a href="butterfly.html" class="box">
       <img src="butterfly cover.png" alt="Butterfly Layout">
       <span>Butterfly</span>
     </a>
   </div>
+</div>
+
 
   <!-- Menu Overlay -->
   <div id="menuOverlay" class="menu-overlay">

@@ -25,7 +25,7 @@ html, body {
 
 h1 {
   font-size: 72px;
-  margin: 20px 0 0 100px; /* Keeps away from sidebar */
+  margin: 20px 0 0 100px;
   text-shadow: 4px 4px 10px red;
   text-align: center;
   color: white;
@@ -35,11 +35,19 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 40px;
   height: calc(100% - 180px);
   padding: 20px;
   box-sizing: border-box;
+}
+
+.container-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 40px;
+  width: 100%;
 }
 
 .box {
@@ -236,101 +244,46 @@ a {
   }
 }
 
+/* ✅ Portrait mode: 2 top boxes + 1 below, centered & pushed down */
 @media screen and (orientation: portrait) and (max-width: 768px) {
-  h1 {
-    font-size: 40px;
-    margin-top: 50px;
-    margin-left: 70px;
-  }
-
   .container {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 170px;
-    padding-bottom: 60px;
+    margin-top: 160px;
   }
 
-  .container-row {
+  .first-row a:nth-child(3) {
+    display: none;
+  }
+
+  .portrait-row {
     display: flex;
     justify-content: center;
     gap: 20px;
-    flex-wrap: nowrap;
-  }
-
-  .container-row.single {
-    justify-content: center;
-  }
-
-  .box {
-    width: 160px;
-    height: 160px;
-  }
-
-  .box span {
-    font-size: 28px;
-    line-height: 40px;
-  }
-
-  .sidebar {
-    top: 12px;
-    left: 12px;
-    gap: 14px;
-  }
-
-  .icon-box {
-    width: 55px;
-    height: 55px;
-  }
-
-  .icon-box img {
-    width: 80%;
-    height: 80%;
   }
 }
 
-@media screen and (orientation: landscape) and (max-height: 500px) {
-  h1 {
-    font-size: 40px;
-    margin-top: 10px;
-    margin-left: 80px;
+/* ✅ Landscape and Desktop: all 3 in a row */
+@media screen and (min-width: 769px), screen and (orientation: landscape) and (min-height: 501px) {
+  .portrait-row {
+    display: none;
   }
 
-  html, body {
-    overflow: hidden;
-    height: 100vh;
-  }
-
-  .container {
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 60px;
-    height: auto;
-  }
-
-  .container-row {
+  .first-row {
     display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: nowrap;
     flex-direction: row;
-  }
-
-  .container-row.single {
     justify-content: center;
+    gap: 40px;
   }
+}
 
+/* ✅ Landscape with small height (like tablets sideways): smaller box size */
+@media screen and (orientation: landscape) and (max-height: 500px) {
   .box {
     width: 160px;
     height: 160px;
   }
 
   .box span {
-    font-size: 28px;
+    font-size: 22px;
     line-height: 40px;
   }
 
@@ -340,23 +293,24 @@ a {
   }
 
   .icon-box img {
-    width: 75%;
-    height: 75%;
+    width: 65%;
+    height: 65%;
   }
 
   .menu-item {
     font-size: 22px;
     width: 200px;
   }
+
+  .container {
+    margin-top: 60px;
+  }
 }
-
-
-
   </style>
 </head>
 <body>
 
-  <!-- Sidebar with Home & Menu -->
+  <!-- Sidebar -->
   <div class="sidebar">
     <div class="icon-box" onclick="window.location.href='main page.html'">
       <img src="home new.png" alt="Home">
@@ -368,27 +322,32 @@ a {
 
   <h1> Mahjong Legend </h1>
 
-<div class="container">
-  <div class="container-row">
-    <a href="turtle.html" class="box">
-      <img src="turtle cover.png" alt="Turtle Layout">
-      <span>Turtle</span>
-    </a>
-    <a href="pagoda.html" class="box">
-      <img src="pagoda cover.png" alt="Pagoda Layout">
-      <span>Pagoda</span>
-    </a>
+  <!-- Layout Boxes -->
+  <div class="container">
+    <!-- First row: 3 boxes in desktop/landscape, only 2 in portrait -->
+    <div class="container-row first-row">
+      <a href="turtle.html" class="box">
+        <img src="turtle cover 3.png" alt="Turtle Layout">
+        <span>Turtle</span>
+      </a>
+      <a href="pagoda.html" class="box">
+        <img src="pagoda cover 3.png" alt="Pagoda Layout">
+        <span>Pagoda</span>
+      </a>
+      <a href="butterfly.html" class="box">
+        <img src="butterfly 3.png" alt="Butterfly Layout">
+        <span>Butterfly</span>
+      </a>
+    </div>
+
+    <!-- Second row for portrait mode -->
+    <div class="container-row portrait-row">
+      <a href="butterfly.html" class="box">
+        <img src="butterfly 3.png" alt="Butterfly Layout">
+        <span>Butterfly</span>
+      </a>
+    </div>
   </div>
-
-  <div class="container-row single">
-    <a href="butterfly.html" class="box">
-      <img src="butterfly cover.png" alt="Butterfly Layout">
-      <span>Butterfly</span>
-    </a>
-  </div>
-</div>
-
-
 
   <!-- Menu Overlay -->
   <div id="menuOverlay" class="menu-overlay">
@@ -398,14 +357,13 @@ a {
     </div>
   </div>
 
-  <!-- Script to toggle overlay -->
+  <!-- Toggle Menu Script -->
   <script>
     function toggleMenu() {
       const menu = document.getElementById("menuOverlay");
       menu.style.display = menu.style.display === "flex" ? "none" : "flex";
     }
 
-    // Close menu when clicking outside
     window.addEventListener("click", function(event) {
       const menu = document.getElementById("menuOverlay");
       if (event.target === menu) {
